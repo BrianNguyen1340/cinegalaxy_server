@@ -3,7 +3,7 @@
  * "I turn lines of code into game-changing solutions!"
  */
 
-export const WHITELIST_DOMAINS = ['http://localhost:3000']
+import { WHITELIST_DOMAINS } from "~/utils/domains"
 
 export const corsOptions = {
   origin: (origin, callback) => {
