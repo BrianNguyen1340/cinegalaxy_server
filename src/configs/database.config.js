@@ -37,11 +37,7 @@ import { varEnv } from '~/configs/variableEnv.config'
 
 export const CONNECT_DB = async () => {
   try {
-    const connection = await mongoose.connect(varEnv.MONGO_DB_ATLAS, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      dbName: varEnv.DATABASE_NAME,
-    })
+    const connection = await mongoose.connect(varEnv.MONGO_DB_ATLAS)
     return connection
   } catch (error) {
     throw new Error(error.message)
