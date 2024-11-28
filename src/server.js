@@ -45,7 +45,7 @@ const START_SERVER = () => {
   const port = varEnv.PORT || 7777
   const hostname = varEnv.HOST_NAME
 
-  app.listen(port, hostname, () => {
+  app.listen(port, () => {
     console.log(`3. Server is running at http://${hostname}:${port}!`)
   })
 
