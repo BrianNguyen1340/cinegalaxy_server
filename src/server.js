@@ -12,8 +12,8 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import AsyncExitHook from 'async-exit-hook'
+import 'dotenv/config'
 
-import { varEnv } from '~/configs/variableEnv.config'
 import { logger } from '~/logs/customLoggers'
 import { errorHandlerMiddleware } from '~/middlewares/error.middleware'
 import { validateEnv } from '~/configs/validateEnv.config'
@@ -39,13 +39,13 @@ const START_SERVER = () => {
   initAPIRoutes(app)
 
   app.get('/api/v1/config/paypal', (req, res) => {
-    res.send({ clientId: varEnv.PAYPAL_CLIENT_ID })
+    res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
   })
 
-  const LOCAL_PORT = varEnv.LOCAL_PORT
-  const LOCAL_HOST_NAME = varEnv.LOCAL_HOST_NAME
+  const LOCAL_PORT = process.env.LOCAL_PORT
+  const LOCAL_HOST_NAME = process.env.LOCAL_HOST_NAME
 
-  if (varEnv.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production') {
     app.listen(process.env.PORT, () => {
       console.log(`3. Server is running at ${process.env.PORT}!`)
     })
