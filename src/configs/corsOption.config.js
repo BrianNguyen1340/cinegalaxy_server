@@ -3,28 +3,15 @@
  * "I turn lines of code into game-changing solutions!"
  */
 
-import { StatusCodes } from 'http-status-codes'
-
 import { WHITELIST_DOMAINS } from '~/utils/domains'
-import { varEnv } from './variableEnv.config'
-import { ApiError } from '~/utils/apiError'
 
 export const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin && varEnv.NODE_ENV === 'development') {
-      return callback(null, true)
-    }
-
-    if (WHITELIST_DOMAINS.indexOf(origin)) {
+    if (!origin || WHITELIST_DOMAINS.includes(origin)) {
       callback(null, true)
+    } else {
+      callback(new Error(`${origin} not allowed by our CORS policy!`))
     }
-
-    return callback(
-      new ApiError(
-        StatusCodes.FORBIDDEN,
-        `${origin} not allowed by our CORS policy!`
-      )
-    )
   },
   credentials: true,
   optionSuccessStatus: 200,
