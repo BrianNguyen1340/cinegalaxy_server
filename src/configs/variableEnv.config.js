@@ -16,7 +16,7 @@ const getEnv = (key, defaultValue) => {
 export const varEnv = {
   CLIENT_URI: getEnv('CLIENT_URI'),
 
-  BUILD_MODE: process.env.BUILD_MODE,
+  BUILD_MODE: getEnv('BUILD_MODE'),
 
   LOCAL_HOST_NAME: getEnv('LOCAL_HOST_NAME'),
   LOCAL_PORT: getEnv('LOCAL_PORT'),

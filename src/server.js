@@ -11,7 +11,7 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
-import AsyncExitHook from 'async-exit-hook'
+import asyncExitHook from 'async-exit-hook'
 
 import { logger } from '~/logs/customLoggers'
 import { errorHandlerMiddleware } from '~/middlewares/error.middleware'
@@ -57,7 +57,7 @@ const START_SERVER = () => {
     })
   }
 
-  AsyncExitHook(() => {
+  asyncExitHook(() => {
     console.log('4. Disconnecting to MongoDB Cloud Atlas!')
     CLOSE_DB()
     console.log('5. Disconnected to MongoDB Cloud Atlas!')

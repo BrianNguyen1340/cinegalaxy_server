@@ -3,11 +3,11 @@
  * "I turn lines of code into game-changing solutions!"
  */
 
-import { allowedOrigins } from '~/configs/corsOption.config'
+import { WHITELIST_DOMAINS } from '~/utils/domains'
 
 export const credentials = (req, res, next) => {
   const origin = req.headers.origin
-  if (origin && allowedOrigins.includes(origin)) {
+  if (origin && WHITELIST_DOMAINS.includes(origin)) {
     res.header('Access-Control-Allow-Credentials', 'true')
   }
   next()
