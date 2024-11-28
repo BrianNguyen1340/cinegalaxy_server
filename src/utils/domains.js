@@ -3,6 +3,4 @@
  * "I turn lines of code into game-changing solutions!"
  */
 
-import { varEnv } from '~/configs/variableEnv.config'
-
-export const WHITELIST_DOMAINS = [varEnv.CLIENT_URI]
+export const WHITELIST_DOMAINS = ['http://localhost:3000/']
