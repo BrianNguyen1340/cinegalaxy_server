@@ -9,8 +9,6 @@ export const validateEnv = () => {
   cleanEnv(process.env, {
     CLIENT_URI: str(),
 
-    NODE_ENV: str(),
-
     LOCAL_HOST_NAME: str(),
     LOCAL_PORT: port({ default: 7777 }),
 

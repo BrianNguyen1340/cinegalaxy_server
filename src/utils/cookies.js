@@ -6,7 +6,7 @@
 import { varEnv } from '~/configs/variableEnv.config'
 import { getExpirationTime } from './getExpirationTime'
 
-const secure = varEnv.NODE_ENV !== 'development'
+const secure = varEnv.BUILD_MODE === 'production'
 
 const defaults = {
   sameSite: 'strict',

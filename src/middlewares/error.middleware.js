@@ -26,7 +26,7 @@ export const errorHandlerMiddleware = (error, req, res, next) => {
     stack: error.stack,
   }
 
-  if (varEnv.NODE_ENV !== 'development') {
+  if (varEnv.BUILD_MODE !== 'development') {
     delete responseError.stack
   }
 
