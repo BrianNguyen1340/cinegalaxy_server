@@ -42,7 +42,7 @@ const START_SERVER = () => {
     res.send({ clientId: varEnv.PAYPAL_CLIENT_ID })
   })
 
-  const LOCAL_PORT = varEnv.LOCAL_PORT || 7777
+  const LOCAL_PORT = varEnv.LOCAL_PORT
   const LOCAL_HOST_NAME = varEnv.LOCAL_HOST_NAME
 
   if (varEnv.NODE_ENV === 'production') {
