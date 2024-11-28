@@ -42,7 +42,7 @@ const START_SERVER = () => {
     res.send({ clientId: varEnv.PAYPAL_CLIENT_ID })
   })
 
-  const port = varEnv.PORT && Number(varEnv.PORT)
+  const port = varEnv.PORT || 7777
   const hostname = varEnv.HOST_NAME
 
   app.listen(port, hostname, () => {
