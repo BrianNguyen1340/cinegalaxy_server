@@ -45,7 +45,7 @@ const START_SERVER = () => {
   const LOCAL_PORT = varEnv.LOCAL_PORT
   const LOCAL_HOST_NAME = varEnv.LOCAL_HOST_NAME
 
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.BUILD_MODE === 'production') {
     app.listen(process.env.PORT, () => {
       console.log(`3. Server is running at ${process.env.PORT}!`)
     })
