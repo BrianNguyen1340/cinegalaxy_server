@@ -22,7 +22,7 @@ export const corsOptions = {
     return callback(
       new ApiError(
         StatusCodes.FORBIDDEN,
-        `${origin} now allowed by or CORS policy!`
+        `${origin} not allowed by our CORS policy!`
       )
     )
   },
