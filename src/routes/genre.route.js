@@ -1,3 +1,8 @@
+/**
+ * @copyright 2024 Brian Nguyen
+ * "I turn lines of code into game-changing solutions!"
+ */
+
 import { Router } from 'express'
 
 import { authentication, isAdmin } from '~/middlewares/auth.middleware'
@@ -11,7 +16,7 @@ router.get('/get-all', GenreController.handleGetAll)
 router.put(
   '/update/:id',
   [authentication, isAdmin],
-  GenreController.handleUpdate,
+  GenreController.handleUpdate
 )
 
 export const GenreRoute = router

@@ -1,3 +1,9 @@
+/**
+ * @copyright 2024 Brian Nguyen
+ * "I turn lines of code into game-changing solutions!"
+ */
+
+
 import { StatusCodes } from 'http-status-codes'
 
 import { HttpException } from './httpException'

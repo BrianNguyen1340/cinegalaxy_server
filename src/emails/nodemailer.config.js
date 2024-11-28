@@ -1,3 +1,8 @@
+/**
+ * @copyright 2024 Brian Nguyen
+ * "I turn lines of code into game-changing solutions!"
+ */
+
 import nodemailer from 'nodemailer'
 
 import { varEnv } from '~/configs/variableEnv.config'

@@ -1,3 +1,8 @@
+/**
+ * @copyright 2024 Brian Nguyen
+ * "I turn lines of code into game-changing solutions!"
+ */
+
 import { format } from 'date-fns'
 import { v4 as uuidv4 } from 'uuid'
 import fs from 'fs'

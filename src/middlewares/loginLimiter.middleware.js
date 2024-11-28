@@ -1,3 +1,8 @@
+/**
+ * @copyright 2024 Brian Nguyen
+ * "I turn lines of code into game-changing solutions!"
+ */
+
 import rateLimit from 'express-rate-limit'
 
 export const loginLimiter = rateLimit({

@@ -1,4 +1,10 @@
+/**
+ * @copyright 2024 Brian Nguyen
+ * "I turn lines of code into game-changing solutions!"
+ */
+
 /* eslint-disable no-unused-vars */
+
 import { StatusCodes } from 'http-status-codes'
 
 import { varEnv } from '~/configs/variableEnv.config'

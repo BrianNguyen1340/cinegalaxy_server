@@ -1,3 +1,8 @@
+/**
+ * @copyright 2024 Brian Nguyen
+ * "I turn lines of code into game-changing solutions!"
+ */
+
 import { Server } from 'socket.io'
 import express from 'express'
 import http from 'http'
