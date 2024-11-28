@@ -9,8 +9,8 @@ export const validateEnv = () => {
   cleanEnv(process.env, {
     CLIENT_URI: str(),
     NODE_ENV: str(),
-    HOST_NAME: str(),
-    PORT: port({ default: 8888 }),
+    LOCAL_HOST_NAME: str(),
+    LOCAL_PORT: port({ default: 7777 }),
 
     DATABASE_NAME: str(),
     MONGO_DB_LOCAL_URI: str(),

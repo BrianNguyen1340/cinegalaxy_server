@@ -16,8 +16,8 @@ const getEnv = (key, defaultValue) => {
 export const varEnv = {
   CLIENT_URI: getEnv('CLIENT_URI'),
   NODE_ENV: getEnv('NODE_ENV'),
-  HOST_NAME: getEnv('HOST_NAME'),
-  PORT: getEnv('PORT'),
+  LOCAL_HOST_NAME: getEnv('LOCAL_HOST_NAME'),
+  LOCAL_PORT: getEnv('LOCAL_PORT'),
 
   DATABASE_NAME: getEnv('DATABASE_NAME'),
   MONGO_DB_LOCAL_URI: getEnv('MONGO_DB_LOCAL_URI'),

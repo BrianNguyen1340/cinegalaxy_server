@@ -42,12 +42,20 @@ const START_SERVER = () => {
     res.send({ clientId: varEnv.PAYPAL_CLIENT_ID })
   })
 
-  const port = varEnv.PORT || 7777
-  const hostname = varEnv.HOST_NAME
+  const LOCAL_PORT = varEnv.LOCAL_PORT || 7777
+  const LOCAL_HOST_NAME = varEnv.LOCAL_HOST_NAME
 
-  app.listen(port, hostname, () => {
-    console.log(`3. Server is running at http://${hostname}:${port}!`)
-  })
+  if (varEnv.NODE_ENV === 'production') {
+    app.listen(process.env.PORT, () => {
+      console.log(`3. Server is running at ${process.env.PORT}!`)
+    })
+  } else {
+    app.listen(LOCAL_PORT, LOCAL_HOST_NAME, () => {
+      console.log(
+        `3. Server is running at http://${LOCAL_HOST_NAME}:${LOCAL_PORT}!`
+      )
+    })
+  }
 
   AsyncExitHook(() => {
     console.log('4. Disconnecting to MongoDB Cloud Atlas!')
