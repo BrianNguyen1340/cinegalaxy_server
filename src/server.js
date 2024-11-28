@@ -28,7 +28,7 @@ const START_SERVER = () => {
   app.use(cookieParser())
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true, limit: '30mb' }))
-  app.use(morgan('combined'))
+  app.use(morgan('dev'))
   app.use(cors(corsOptions))
   app.use(helmet())
   app.use(logger)
