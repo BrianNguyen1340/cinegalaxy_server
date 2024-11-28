@@ -5,15 +5,15 @@
 
 import { StatusCodes } from 'http-status-codes'
 
-import { WHITELIST_DOMAINS } from '~/utils/domains'
-import { varEnv } from './variableEnv.config'
 import { ApiError } from '~/utils/apiError'
+import { WHITELIST_DOMAINS } from '~/utils/domains'
+// import { varEnv } from './variableEnv.config'
 
 export const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin && varEnv.NODE_ENV === 'development') {
-      return callback(null, true)
-    }
+    // if (!origin && varEnv.NODE_ENV === 'development') {
+    //   return callback(null, true)
+    // }
 
     if (WHITELIST_DOMAINS.indexOf(origin)) {
       callback(null, true)
