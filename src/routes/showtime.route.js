@@ -32,5 +32,6 @@ router.put(
   [authentication, isManager],
   ShowtimeController.handleShowShowtime
 )
+router.get('/total', [authentication], ShowtimeController.totalShowtimes)
 
 export const ShowtimeRoute = router

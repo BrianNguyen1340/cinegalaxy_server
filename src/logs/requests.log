@@ -1,8 +1,0 @@
-20241128	20:47:12	bd39a716-a584-4266-8706-a4c0a07f80cf	Error: Not allowed by CORS	POST	/api/v1/auth/login	http://localhost:3000
-20241128	20:47:16	0c2fff64-0c2a-4fb1-8e3f-a027ef885bc7	Error: Not allowed by CORS	POST	/api/v1/auth/login	http://localhost:3000
-20241128	22:04:51	0abbd1e1-1ce0-4e13-849a-bbda21b5f306	Error: Not allowed by CORS	POST	/api/v1/auth/login	http://localhost:3000
-20241128	22:06:31	96222c78-e8c4-4743-9573-44d0cc3462cf	Error: Not allowed by CORS	POST	/api/v1/auth/login	http://localhost:3000
-20241128	22:07:05	e70be5ab-d977-4da4-a460-308b784eaa3f	Error: Not allowed by CORS	POST	/api/v1/auth/login	http://localhost:3000
-20241128	22:12:37	b958a80a-f646-4168-8c37-b25ff1802943	Error: Not allowed by CORS	POST	/api/v1/auth/login	http://localhost:3000
-20241128	22:13:37	b6724ce3-a609-4597-bb05-63343860bf26	Error: Not allowed by CORS	POST	/api/v1/auth/login	http://localhost:3000
-20241128	22:16:18	64c2142d-4813-4713-a06d-9d3cff2e75a5	Error: Not allowed by CORS	POST	/api/v1/auth/login	http://localhost:3000

@@ -13,7 +13,7 @@ import { logEvents } from '~/logs/customLoggers'
 export const errorHandlerMiddleware = (error, req, res, next) => {
   logEvents(
     `${error.name}: ${error.message}\t${req.method}\t${req.url}\t${req.headers.origin}`,
-    'requests.log'
+    'request.log'
   )
 
   if (!error.statusCode) {

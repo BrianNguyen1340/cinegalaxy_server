@@ -15,6 +15,6 @@ router.post(
   [authentication],
   ShowtimeSeatStatusController.handleCreate
 )
-router.get('/', ShowtimeSeatStatusController.handleGetAll)
+router.get('/get-all', ShowtimeSeatStatusController.handleGetAll)
 
 export const ShowtimeSeatStautsRoute = router

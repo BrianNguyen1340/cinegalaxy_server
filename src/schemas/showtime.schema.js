@@ -7,6 +7,12 @@ import { model, Schema } from 'mongoose'
 
 const ShowtimeSchema = new Schema(
   {
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+      trim: true,
+    },
     cinemaId: {
       type: Schema.Types.ObjectId,
       ref: 'Cinema',

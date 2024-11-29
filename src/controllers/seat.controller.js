@@ -88,6 +88,22 @@ const handleUpdate = catchErrors(async (req, res) => {
   )
 })
 
+const handleDelete = catchErrors(async (req, res) => {
+  const { id } = req.params
+
+  const response = await seatService.handleDelete(id)
+  if (!response.success) {
+    return sendErrorResponse(res, response.statusCode, response.message)
+  }
+
+  return sendSuccessResponse(
+    res,
+    response.statusCode,
+    response.message,
+    response.data
+  )
+})
+
 export const SeatController = {
   handleCreate: [
     handleJoiError({ body: SeatValidation.handleCreate }),
@@ -99,4 +115,5 @@ export const SeatController = {
     handleJoiError({ body: SeatValidation.handleUpdate }),
     handleUpdate,
   ],
+  handleDelete,
 }

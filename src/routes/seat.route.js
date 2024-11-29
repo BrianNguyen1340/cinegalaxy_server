@@ -18,5 +18,10 @@ router.put(
   [authentication, isAdmin],
   SeatController.handleUpdate
 )
+router.delete(
+  '/delete/:id',
+  [authentication, isAdmin],
+  SeatController.handleDelete
+)
 
 export const SeatRoute = router

@@ -11,7 +11,7 @@ import { UserModel } from '~/schemas/user.schema'
 
 /** @service create showtime */
 const handleCreate = async (
-  userId,
+  createdBy,
   date,
   timeStart,
   movieId,
@@ -24,7 +24,26 @@ const handleCreate = async (
       timeStart = new Date(timeStart)
     }
 
-    const userData = await UserModel.findById(userId)
+    const currentDate = new Date()
+
+    if (new Date(date) < currentDate) {
+      return {
+        success: false,
+        statusCode: StatusCodes.BAD_REQUEST,
+        message: 'Ngày chiếu không được nhỏ hơn ngày hiện tại!',
+      }
+    }
+
+    const timeStartDate = new Date(timeStart)
+    if (isNaN(timeStartDate.getTime())) {
+      return {
+        success: false,
+        statusCode: StatusCodes.BAD_REQUEST,
+        message: 'Thời gian bắt đầu không hợp lệ!',
+      }
+    }
+
+    const userData = await UserModel.findById(createdBy)
     if (!userData) {
       return {
         success: false,
@@ -80,6 +99,7 @@ const handleCreate = async (
     }
 
     const newData = await ShowtimeModel.create({
+      createdBy,
       date,
       timeStart,
       timeEnd,
@@ -209,14 +229,33 @@ const handleGetAll = async () => {
 /** @service update showtime */
 const handleUpdate = async (
   id,
-  cinemaId,
-  roomId,
-  movieId,
+  createdBy,
   date,
   timeStart,
-  promotionId
+  movieId,
+  roomId,
+  cinemaId,
 ) => {
   try {
+    const currentDate = new Date()
+
+    if (new Date(date) < currentDate) {
+      return {
+        success: false,
+        statusCode: StatusCodes.BAD_REQUEST,
+        message: 'Ngày chiếu không được nhỏ hơn ngày hiện tại!',
+      }
+    }
+
+    const timeStartDate = new Date(timeStart)
+    if (isNaN(timeStartDate.getTime())) {
+      return {
+        success: false,
+        statusCode: StatusCodes.BAD_REQUEST,
+        message: 'Thời gian bắt đầu không hợp lệ!',
+      }
+    }
+
     const showtime = await ShowtimeModel.findById(id)
     if (!showtime) {
       return {
@@ -235,18 +274,29 @@ const handleUpdate = async (
       }
     }
 
-    const timeStartDate = new Date(timeStart)
-    if (isNaN(timeStartDate.getTime())) {
-      return {
-        success: false,
-        statusCode: StatusCodes.BAD_REQUEST,
-        message: 'Thời gian bắt đầu không hợp lệ!',
-      }
-    }
-
     const timeEnd = new Date(
       timeStartDate.getTime() + movieData.duration * 60 * 1000
     )
+
+    const userData = await UserModel.findById(createdBy)
+    if (!userData) {
+      return {
+        success: false,
+        statusCode: StatusCodes.NOT_FOUND,
+        message: 'Người dùng không tồn tại!',
+      }
+    }
+
+    if (
+      userData.role !== 1 ||
+      userData.cinemaId.toString() !== cinemaId.toString()
+    ) {
+      return {
+        success: false,
+        statusCode: StatusCodes.FORBIDDEN,
+        message: 'Chỉ manager của rạp này mới có quyền tạo suất chiếu!',
+      }
+    }
 
     const conflictingShowtime = await ShowtimeModel.findOne({
       _id: { $ne: id },
@@ -282,12 +332,12 @@ const handleUpdate = async (
       id,
       {
         $set: {
+          createdBy,
           cinemaId,
           roomId,
           movieId,
           date,
           timeStart: timeStartDate,
-          promotionId,
         },
       },
       { new: true }
@@ -425,6 +475,31 @@ const handleShowShowtime = async (id) => {
   }
 }
 
+const totalShowtimes = async () => {
+  try {
+    const data = await ShowtimeModel.countDocuments()
+    return {
+      success: true,
+      statusCode: StatusCodes.OK,
+      message: 'Lấy tất cả thông tin người dùng thành công!',
+      data,
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        message: `Lỗi hệ thống: ${error.message}`,
+      }
+    }
+    return {
+      success: false,
+      statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+      message: 'Đã xảy ra lỗi không xác định!',
+    }
+  }
+}
+
 export const ShowtimeService = {
   handleCreate,
   handleGetOne,
@@ -432,4 +507,5 @@ export const ShowtimeService = {
   handleUpdate,
   handleHideShowtime,
   handleShowShowtime,
+  totalShowtimes,
 }

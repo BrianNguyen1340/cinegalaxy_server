@@ -7,15 +7,7 @@ import { StatusCodes } from 'http-status-codes'
 
 import { PromotionModel } from '~/schemas/promotion.schema'
 
-const handleCreate = async (
-  createdBy,
-  name,
-  type,
-  value,
-  description,
-  startDate,
-  endDate
-) => {
+const handleCreate = async (createdBy, name, type, value, description) => {
   try {
     const checkExist = await PromotionModel.findOne({
       name,
@@ -34,8 +26,6 @@ const handleCreate = async (
       type,
       value,
       description,
-      startDate,
-      endDate,
     })
     if (!newData) {
       return {
@@ -139,15 +129,7 @@ const handleGetAll = async () => {
   }
 }
 
-const handleUpdate = async (
-  id,
-  name,
-  type,
-  value,
-  description,
-  startDate,
-  endDate
-) => {
+const handleUpdate = async (id, name, type, value, description) => {
   try {
     const data = await PromotionModel.findById(id)
     if (!data) {
@@ -178,8 +160,6 @@ const handleUpdate = async (
           type,
           value,
           description,
-          startDate,
-          endDate,
         },
       },
       {

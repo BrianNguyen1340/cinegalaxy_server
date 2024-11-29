@@ -3,21 +3,19 @@
  * "I turn lines of code into game-changing solutions!"
  */
 
-import { handleJoiError } from '~/middlewares/joi.middleware'
 import {
   sendErrorResponse,
   sendSuccessResponse,
 } from '~/utils/responseDataHandler'
 import { catchErrors } from '~/utils/catchErrors'
 import { ShowtimeService } from '~/services/showtime.service'
-import { ShowtimeValidation } from '~/validations/showtime.validation'
 
 const handleCreate = catchErrors(async (req, res) => {
-  const userId = req.user._id
+  const createdBy = req.user._id
   const { date, timeStart, movieId, roomId, cinemaId, promotionId } = req.body
 
   const response = await ShowtimeService.handleCreate(
-    userId,
+    createdBy,
     date,
     timeStart,
     movieId,
@@ -68,16 +66,18 @@ const handleGetAll = catchErrors(async (req, res) => {
 })
 
 const handleUpdate = catchErrors(async (req, res) => {
+  const createdBy = req.user._id
   const { id } = req.params
   const { cinemaId, roomId, movieId, date, timeStart } = req.body
 
   const response = await ShowtimeService.handleUpdate(
     id,
-    cinemaId,
-    roomId,
-    movieId,
+    createdBy,
     date,
-    timeStart
+    timeStart,
+    movieId,
+    roomId,
+    cinemaId
   )
   if (!response.success) {
     return sendErrorResponse(res, response.statusCode, response.message)
@@ -123,17 +123,26 @@ const handleShowShowtime = catchErrors(async (req, res) => {
   )
 })
 
+const totalShowtimes = catchErrors(async (req, res) => {
+  const response = await ShowtimeService.totalShowtimes()
+  if (!response.success) {
+    return sendErrorResponse(res, response.statusCode, response.message)
+  }
+
+  return sendSuccessResponse(
+    res,
+    response.statusCode,
+    response.message,
+    response.data
+  )
+})
+
 export const ShowtimeController = {
-  handleCreate: [
-    handleJoiError({ body: ShowtimeValidation.handleCreate }),
-    handleCreate,
-  ],
+  handleCreate,
   handleGetOne,
   handleGetAll,
-  handleUpdate: [
-    handleJoiError({ body: ShowtimeValidation.handleUpdate }),
-    handleUpdate,
-  ],
+  handleUpdate,
   handleHideShowtime,
   handleShowShowtime,
+  totalShowtimes,
 }

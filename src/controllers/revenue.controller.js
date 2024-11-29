@@ -1,40 +1,31 @@
-/**
- * @copyright 2024 Brian Nguyen
- * "I turn lines of code into game-changing solutions!"
- */
+import mongoose from 'mongoose'
+import { ServiceTicketModel } from '~/schemas/serviceTicket.schema'
+import { MovieTicketModel } from '~/schemas/movieTicket.schema'
 
-import { StatusCodes } from 'http-status-codes'
+const getShowtimeRevenue = async (showtimeId) => {
+  try {
+    const movieTickets = await MovieTicketModel.aggregate([
+      { $match: { showtimeId: mongoose.Types.ObjectId(showtimeId) } },
+      { $group: { _id: null, totalTicketRevenue: { $sum: '$totalPrice' } } },
+    ])
+    const ticketRevenue =
+      movieTickets.length > 0 ? movieTickets[0].totalTicketRevenue : 0
 
-import { catchErrors } from '~/utils/catchErrors'
-import { OrderModel } from '~/schemas/order.schema'
+    const serviceTickets = await ServiceTicketModel.aggregate([
+      { $match: { cinemaId: mongoose.Types.ObjectId(showtimeId) } },
+      { $group: { _id: null, totalServiceRevenue: { $sum: '$totalPrice' } } },
+    ])
+    const serviceRevenue =
+      serviceTickets.length > 0 ? serviceTickets[0].totalServiceRevenue : 0
 
-const getTotalRevenueByShowtimes = catchErrors(async (req, res) => {
-  const { showtimeIds } = req.body
+    const totalRevenue = ticketRevenue + serviceRevenue
 
-  if (!showtimeIds || !Array.isArray(showtimeIds) || showtimeIds.length === 0) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      success: false,
-      message: 'Danh sách suất chiếu không hợp lệ',
-    })
+    return totalRevenue
+  } catch (error) {
+    throw new Error(error.message)
   }
-
-  const orders = await OrderModel.find({
-    showtimeId: { $in: showtimeIds },
-  })
-
-  const totalRevenue = orders.reduce(
-    (total, order) => total + order.totalPrice,
-    0
-  )
-
-  res.status(StatusCodes.OK).json({
-    success: true,
-    message: 'Tổng doanh thu tính thành công',
-    totalRevenue,
-    showtimeIds,
-  })
-})
+}
 
 export const RevenueController = {
-  getTotalRevenueByShowtimes,
+  getShowtimeRevenue,
 }

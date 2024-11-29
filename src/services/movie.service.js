@@ -24,6 +24,15 @@ const handleCreate = async (
   genreIds
 ) => {
   try {
+    const currentDate = new Date()
+    if (new Date(releaseDate) < currentDate) {
+      return {
+        success: false,
+        statusCode: StatusCodes.BAD_REQUEST,
+        message: 'Ngày phát hành không được nhỏ hơn ngày hiện tại!',
+      }
+    }
+
     const checkExist = await MovieModel.findOne({
       name,
     })
@@ -166,6 +175,15 @@ const handleUpdate = async (
   genreIds
 ) => {
   try {
+    const currentDate = new Date()
+    if (new Date(releaseDate) < currentDate) {
+      return {
+        success: false,
+        statusCode: StatusCodes.BAD_REQUEST,
+        message: 'Ngày phát hành không được nhỏ hơn ngày hiện tại!',
+      }
+    }
+
     const data = await MovieModel.findById(id)
     if (!data) {
       return {

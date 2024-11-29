@@ -13,15 +13,13 @@ import { PromotionService } from '~/services/promotion.service'
 const handleCreate = catchErrors(async (req, res) => {
   const createdBy = req.user._id
 
-  const { name, type, value, description, startDate, endDate } = req.body
+  const { name, type, value, description } = req.body
   const response = await PromotionService.handleCreate(
     createdBy,
     name,
     type,
     value,
-    description,
-    startDate,
-    endDate
+    description
   )
   if (!response.success) {
     return sendErrorResponse(res, response.statusCode, response.message)
@@ -67,7 +65,7 @@ const handleGetAll = catchErrors(async (req, res) => {
 
 const handleUpdate = catchErrors(async (req, res) => {
   const { id } = req.params
-  const { name, type, value, description, startDate, endDate } = req.body
+  const { name, type, value, description } = req.body
 
   const response = await PromotionService.handleUpdate(
     id,
@@ -75,9 +73,7 @@ const handleUpdate = catchErrors(async (req, res) => {
     name,
     type,
     value,
-    description,
-    startDate,
-    endDate
+    description
   )
   if (!response.success) {
     return sendErrorResponse(res, response.statusCode, response.message)
