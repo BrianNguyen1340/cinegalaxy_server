@@ -177,9 +177,35 @@ const handleUpdate = async (id, name) => {
   }
 }
 
+const totalCinemaComplex = async () => {
+  try {
+    const data = await CinemaComplexModel.countDocuments()
+    return {
+      success: true,
+      statusCode: StatusCodes.OK,
+      message: 'Lấy tất cả thông tin cụm rạp thành công!',
+      data,
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        message: `Lỗi hệ thống: ${error.message}`,
+      }
+    }
+    return {
+      success: false,
+      statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+      message: 'Đã xảy ra lỗi không xác định!',
+    }
+  }
+}
+
 export const CinemaComplexService = {
   handleCreate,
   handleGetOne,
   handleGetAll,
   handleUpdate,
+  totalCinemaComplex,
 }

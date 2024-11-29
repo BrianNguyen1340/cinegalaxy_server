@@ -41,6 +41,11 @@ router.post(
   [authentication, isAdmin],
   UserController.createEmployee
 )
-router.get('/total', [authentication], UserController.totalUsers)
+router.get(
+  '/total-system-users',
+  [authentication],
+  UserController.totalSystemUsers
+)
+router.get('/total-users', [authentication], UserController.totalUsers)
 
 export const UserRouter = router

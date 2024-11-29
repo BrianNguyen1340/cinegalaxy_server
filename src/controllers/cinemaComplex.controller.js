@@ -75,6 +75,20 @@ const handleUpdate = catchErrors(async (req, res) => {
   )
 })
 
+const totalCinemaComplex = catchErrors(async (req, res) => {
+  const response = await CinemaComplexService.totalCinemaComplex()
+  if (!response.success) {
+    return sendErrorResponse(res, response.statusCode, response.message)
+  }
+
+  return sendSuccessResponse(
+    res,
+    response.statusCode,
+    response.message,
+    response.data
+  )
+})
+
 export const CinemaComplexController = {
   handleCreate: [
     handleJoiError({ body: CinemaComplexValidation.handleCreate }),
@@ -86,4 +100,5 @@ export const CinemaComplexController = {
     handleJoiError({ body: CinemaComplexValidation.handleUpdate }),
     handleUpdate,
   ],
+  totalCinemaComplex,
 }

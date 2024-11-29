@@ -630,13 +630,42 @@ const getCashiers = async () => {
   }
 }
 
-const totalUsers = async () => {
+const totalSystemUsers = async () => {
   try {
-    const data = await UserModel.countDocuments()
+    const rolesToCount = [0, 1, 2]
+    const data = await UserModel.countDocuments({ role: { $in: rolesToCount } }) // Lọc với `$in`
+
     return {
       success: true,
       statusCode: StatusCodes.OK,
-      message: 'Lấy tất cả thông tin người dùng thành công!',
+      message: 'Lấy thông tin người dùng theo role thành công!',
+      data,
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        message: `Lỗi hệ thống: ${error.message}`,
+      }
+    }
+    return {
+      success: false,
+      statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+      message: 'Đã xảy ra lỗi không xác định!',
+    }
+  }
+}
+
+const totalUsers = async () => {
+  try {
+    const rolesToCount = [3]
+    const data = await UserModel.countDocuments({ role: { $in: rolesToCount } })
+
+    return {
+      success: true,
+      statusCode: StatusCodes.OK,
+      message: 'Lấy thông tin người dùng theo role thành công!',
       data,
     }
   } catch (error) {
@@ -668,5 +697,6 @@ export const UserService = {
   getUsersByManager,
   createEmployee,
   getCashiers,
+  totalSystemUsers,
   totalUsers,
 }

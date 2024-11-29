@@ -22,5 +22,10 @@ router.put(
   [authentication, isAdmin],
   CinemaComplexController.handleUpdate
 )
+router.get(
+  '/total',
+  [authentication],
+  CinemaComplexController.totalCinemaComplex
+)
 
 export const CinemaComplexRoute = router

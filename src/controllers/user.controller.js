@@ -210,6 +210,20 @@ const getCashiers = catchErrors(async (req, res) => {
   )
 })
 
+const totalSystemUsers = catchErrors(async (req, res) => {
+  const response = await UserService.totalSystemUsers()
+  if (!response.success) {
+    return sendErrorResponse(res, response.statusCode, response.message)
+  }
+
+  return sendSuccessResponse(
+    res,
+    response.statusCode,
+    response.message,
+    response.data
+  )
+})
+
 const totalUsers = catchErrors(async (req, res) => {
   const response = await UserService.totalUsers()
   if (!response.success) {
@@ -242,5 +256,6 @@ export const UserController = {
     createEmployee,
   ],
   getCashiers,
+  totalSystemUsers,
   totalUsers,
 }
