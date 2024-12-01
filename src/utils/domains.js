@@ -5,4 +5,7 @@
 
 import { varEnv } from '~/configs/variableEnv.config'
 
-export const WHITELIST_DOMAINS = [varEnv.CLIENT_URI]
+export const WHITELIST_DOMAINS = [
+  varEnv.CLIENT_URI,
+  'https://cinegalaxy-client.vercel.app/',
+]
