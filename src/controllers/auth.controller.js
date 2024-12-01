@@ -190,7 +190,6 @@ const forgotPassword = catchErrors(async (req, res) => {
 const resetPassword = catchErrors(async (req, res) => {
   const { token } = req.params
   const { password } = req.body
-
   const response = await AuthService.resetPassword(token, password)
   if (!response.success) {
     return sendErrorResponse(res, response.statusCode, response.message)

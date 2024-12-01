@@ -684,6 +684,63 @@ const totalUsers = async () => {
   }
 }
 
+const updateEmployee = async (id, email, name, role, cinemaId) => {
+  try {
+    validateObjectId(id)
+
+    const user = await UserModel.findById(id)
+    if (!user) {
+      return {
+        success: false,
+        statusCode: StatusCodes.NOT_FOUND,
+        message: 'Người dùng không tồn tại!',
+      }
+    }
+
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          email,
+          name,
+          role,
+          cinemaId,
+        },
+      },
+      {
+        new: true,
+      }
+    )
+    if (!updatedUser) {
+      return {
+        success: false,
+        statusCode: StatusCodes.BAD_REQUEST,
+        message: 'Cập nhật thông tin người dùng thất bại!',
+      }
+    }
+
+    return {
+      success: true,
+      statusCode: StatusCodes.OK,
+      message: 'Cập nhật thông tin người dùng thành công!',
+      data: updatedUser,
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        message: `Lỗi hệ thống: ${error.message}`,
+      }
+    }
+    return {
+      success: false,
+      statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+      message: 'Đã xảy ra lỗi không xác định!',
+    }
+  }
+}
+
 export const UserService = {
   profile,
   updateProfile,
@@ -699,4 +756,5 @@ export const UserService = {
   getCashiers,
   totalSystemUsers,
   totalUsers,
+  updateEmployee,
 }

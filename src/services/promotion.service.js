@@ -7,7 +7,14 @@ import { StatusCodes } from 'http-status-codes'
 
 import { PromotionModel } from '~/schemas/promotion.schema'
 
-const handleCreate = async (createdBy, name, type, value, description) => {
+const handleCreate = async (
+  createdBy,
+  cinemaId,
+  name,
+  type,
+  value,
+  description
+) => {
   try {
     const checkExist = await PromotionModel.findOne({
       name,
@@ -22,6 +29,7 @@ const handleCreate = async (createdBy, name, type, value, description) => {
 
     const newData = await PromotionModel.create({
       createdBy,
+      cinemaId,
       name,
       type,
       value,
@@ -59,10 +67,13 @@ const handleCreate = async (createdBy, name, type, value, description) => {
 
 const handleGetOne = async (id) => {
   try {
-    const data = await PromotionModel.findById(id).populate({
-      path: 'createdBy',
-      select: '-password',
-    })
+    const data = await PromotionModel.findById(id)
+      .populate({
+        path: 'createdBy',
+        select: '-password',
+      })
+      .populate('cinemaId')
+
     if (!data) {
       return {
         success: false,
@@ -95,10 +106,12 @@ const handleGetOne = async (id) => {
 
 const handleGetAll = async () => {
   try {
-    const datas = await PromotionModel.find().populate({
-      path: 'createdBy',
-      select: '-password',
-    })
+    const datas = await PromotionModel.find()
+      .populate({
+        path: 'createdBy',
+        select: '-password',
+      })
+      .populate('cinemaId')
     if (!datas || datas.length === 0) {
       return {
         success: false,
@@ -129,7 +142,15 @@ const handleGetAll = async () => {
   }
 }
 
-const handleUpdate = async (id, name, type, value, description) => {
+const handleUpdate = async (
+  id,
+  createdBy,
+  cinemaId,
+  name,
+  type,
+  value,
+  description
+) => {
   try {
     const data = await PromotionModel.findById(id)
     if (!data) {
@@ -156,6 +177,8 @@ const handleUpdate = async (id, name, type, value, description) => {
       id,
       {
         $set: {
+          createdBy,
+          cinemaId,
           name,
           type,
           value,

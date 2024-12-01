@@ -64,7 +64,11 @@ const handleGetOne = async (id) => {
       .populate('userId')
       .populate({
         path: 'showtimeId',
-        populate: [{ path: 'movieId' }, { path: 'promotionId' }],
+        populate: [
+          { path: 'movieId' },
+          { path: 'promotionId' },
+          { path: 'cinemaId' },
+        ],
       })
       .populate('products')
       .populate('seats')
@@ -105,7 +109,11 @@ const markOrderAsPaid = async (id) => {
       .populate('userId')
       .populate({
         path: 'showtimeId',
-        populate: [{ path: 'movieId' }, { path: 'promotionId' }],
+        populate: [
+          { path: 'movieId' },
+          { path: 'promotionId' },
+          { path: 'cinemaId' },
+        ],
       })
       .populate('products')
       .populate('seats')
@@ -150,7 +158,11 @@ const handleGetAll = async () => {
       .populate('userId')
       .populate({
         path: 'showtimeId',
-        populate: [{ path: 'movieId' }, { path: 'promotionId' }],
+        populate: [
+          { path: 'movieId' },
+          { path: 'promotionId' },
+          { path: 'cinemaId' },
+        ],
       })
       .populate('products')
       .populate('seats')

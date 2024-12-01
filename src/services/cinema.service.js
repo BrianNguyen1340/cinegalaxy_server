@@ -8,7 +8,7 @@ import { StatusCodes } from 'http-status-codes'
 import { CinemaModel } from '~/schemas/cinema.schema'
 
 /** @service create cinema */
-const handleCreate = async (name, cinemaComplexId) => {
+const handleCreate = async (name, address, phone, cinemaComplexId) => {
   try {
     const checkExist = await CinemaModel.findOne({
       name,
@@ -24,6 +24,8 @@ const handleCreate = async (name, cinemaComplexId) => {
 
     const newData = await CinemaModel.create({
       name,
+      address,
+      phone,
       cinemaComplexId,
     })
     if (!newData) {
@@ -124,7 +126,7 @@ const handleGetAll = async () => {
 }
 
 /** @service update cinema */
-const handleUpdate = async (id, name, cinemaComplexId) => {
+const handleUpdate = async (id, name, address, phone, cinemaComplexId) => {
   try {
     const data = await CinemaModel.findById(id)
     if (!data) {
@@ -153,6 +155,8 @@ const handleUpdate = async (id, name, cinemaComplexId) => {
       {
         $set: {
           name,
+          address,
+          phone,
           cinemaComplexId,
         },
       },

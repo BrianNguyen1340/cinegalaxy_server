@@ -238,6 +238,23 @@ const totalUsers = catchErrors(async (req, res) => {
   )
 })
 
+const updateEmployee = catchErrors(async (req, res) => {
+  const { id } = req.params
+  const { email, name, role, cinemaId } = req.body
+
+  const response = await UserService.updateEmployee(id, email, name, role, cinemaId)
+  if (!response.success) {
+    return sendErrorResponse(res, response.statusCode, response.message)
+  }
+
+  return sendSuccessResponse(
+    res,
+    response.statusCode,
+    response.message,
+    response.data
+  )
+})
+
 export const UserController = {
   profile,
   updateProfile,
@@ -258,4 +275,5 @@ export const UserController = {
   getCashiers,
   totalSystemUsers,
   totalUsers,
+  updateEmployee,
 }

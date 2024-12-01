@@ -19,7 +19,7 @@ router.get(
 router.get(
   '/cinema-revenue',
   [authentication],
-  RevenueController.calculateTotalTicketRevenueByCinema
+  RevenueController.calculateTotalMovieTicketRevenue
 )
 
 export const RevenueRoute = router

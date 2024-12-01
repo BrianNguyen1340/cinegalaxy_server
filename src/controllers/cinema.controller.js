@@ -3,19 +3,22 @@
  * "I turn lines of code into game-changing solutions!"
  */
 
-import { handleJoiError } from '~/middlewares/joi.middleware'
 import {
   sendErrorResponse,
   sendSuccessResponse,
 } from '~/utils/responseDataHandler'
 import { catchErrors } from '~/utils/catchErrors'
 import { CinemaService } from '~/services/cinema.service'
-import { CinemaValidation } from '~/validations/cinema.validation'
 
 const handleCreate = catchErrors(async (req, res) => {
-  const { name, cinemaComplexId } = req.body
+  const { name, address, phone, cinemaComplexId } = req.body
 
-  const response = await CinemaService.handleCreate(name, cinemaComplexId)
+  const response = await CinemaService.handleCreate(
+    name,
+    address,
+    phone,
+    cinemaComplexId
+  )
   if (!response.success) {
     return sendErrorResponse(res, response.statusCode, response.message)
   }
@@ -60,9 +63,15 @@ const handleGetAll = catchErrors(async (req, res) => {
 
 const handleUpdate = catchErrors(async (req, res) => {
   const { id } = req.params
-  const { name, cinemaComplexId } = req.body
+  const { name, address, phone, cinemaComplexId } = req.body
 
-  const response = await CinemaService.handleUpdate(id, name, cinemaComplexId)
+  const response = await CinemaService.handleUpdate(
+    id,
+    name,
+    address,
+    phone,
+    cinemaComplexId
+  )
   if (!response.success) {
     return sendErrorResponse(res, response.statusCode, response.message)
   }
@@ -90,15 +99,9 @@ const totalCinema = catchErrors(async (req, res) => {
 })
 
 export const CinemaController = {
-  handleCreate: [
-    handleJoiError({ body: CinemaValidation.handleCreate }),
-    handleCreate,
-  ],
+  handleCreate,
   handleGetOne,
   handleGetAll,
-  handleUpdate: [
-    handleJoiError({ body: CinemaValidation.handleUpdate }),
-    handleUpdate,
-  ],
+  handleUpdate,
   totalCinema,
 }

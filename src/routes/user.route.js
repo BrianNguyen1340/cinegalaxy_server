@@ -24,6 +24,7 @@ router.get(
   UserController.getCashiers
 )
 router.put('/update-user/:id', UserController.updateUser)
+router.put('/update-employee/:id', UserController.updateEmployee)
 router.put(
   '/block-user/:id',
   [authentication, isAdmin],

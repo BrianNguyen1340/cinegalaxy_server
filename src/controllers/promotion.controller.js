@@ -12,10 +12,10 @@ import { PromotionService } from '~/services/promotion.service'
 
 const handleCreate = catchErrors(async (req, res) => {
   const createdBy = req.user._id
-
-  const { name, type, value, description } = req.body
+  const { cinemaId, name, type, value, description } = req.body
   const response = await PromotionService.handleCreate(
     createdBy,
+    cinemaId,
     name,
     type,
     value,
@@ -65,11 +65,13 @@ const handleGetAll = catchErrors(async (req, res) => {
 
 const handleUpdate = catchErrors(async (req, res) => {
   const { id } = req.params
-  const { name, type, value, description } = req.body
+  const createdBy = req.user._id
+  const { cinemaId, name, type, value, description } = req.body
 
   const response = await PromotionService.handleUpdate(
     id,
-    name,
+    createdBy,
+    cinemaId,
     name,
     type,
     value,

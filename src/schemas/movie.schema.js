@@ -22,7 +22,7 @@ const MovieSchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      maxlength: 1000,
+      maxlength: 3000,
     },
     director: {
       type: String,

@@ -125,7 +125,7 @@ const handleGetAll = async () => {
 /** @service update genre */
 const handleUpdate = async (id, name) => {
   try {
-    const data = await GenreModel.findOne(id)
+    const data = await GenreModel.findById(id)
     if (!data) {
       return {
         success: false,

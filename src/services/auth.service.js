@@ -36,7 +36,8 @@ const register = async (email, password, name) => {
       }
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12)
+    const salt = await bcrypt.genSalt(12)
+    const hashedPassword = await bcrypt.hash(password, salt)
     const verificationToken = generateRandomNumber(8)
     const expiresAt = getExpirationTime(10, 'minutes')
 
@@ -522,7 +523,8 @@ const resetPassword = async (token, password) => {
       }
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12)
+    const salt = await bcrypt.genSalt(12)
+    const hashedPassword = await bcrypt.hash(password, salt)
 
     user.password = hashedPassword
     user.resetPasswordToken = null

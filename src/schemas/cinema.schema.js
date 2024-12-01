@@ -13,6 +13,17 @@ const CinemaSchema = new Schema(
       trim: true,
       maxlength: 250,
     },
+    address: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 3000,
+    },
+    phone: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     cinemaComplexId: {
       type: Schema.Types.ObjectId,
       ref: 'CinemaComplex',

@@ -7,6 +7,10 @@ import { model, Schema } from 'mongoose'
 
 const OrderSchema = new Schema(
   {
+    orderCode: {
+      type: String,
+      default: () => Math.random().toString(36).substring(2, 12),
+    },
     userId: {
       type: Schema.Types.ObjectId,
       required: true,

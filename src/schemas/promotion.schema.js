@@ -13,6 +13,12 @@ const PromotionSchema = new Schema(
       required: true,
       trim: true,
     },
+    cinemaId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Cinema',
+      required: true,
+      trim: true,
+    },
     name: {
       type: String,
       required: true,
@@ -20,18 +26,11 @@ const PromotionSchema = new Schema(
     },
     type: {
       type: String,
-      enum: ['percentage', 'fixed'],
       required: true,
     },
     value: {
-      type: Number,
+      type: String,
       required: true,
-      validate: {
-        validator: function (v) {
-          return v > 0
-        },
-        message: 'Value must be greater than 0',
-      },
     },
     description: {
       type: String,
